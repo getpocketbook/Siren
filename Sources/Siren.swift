@@ -99,6 +99,7 @@ public final class Siren: NSObject {
     fileprivate var appID: Int?
     fileprivate var lastVersionCheckPerformedOnDate: Date?
     fileprivate lazy var alertViewIsVisible: Bool = false
+    var alertController: UIAlertController?
 
     /// Type of the available update
     fileprivate var updateType: UpdateType = .unknown
@@ -159,6 +160,12 @@ public final class Siren: NSObject {
             } else {
                 UIApplication.shared.openURL(url)
             }
+        }
+    }
+    
+    public func dismiss(animated: Bool, completion: (() -> Void)?) {
+        if let alert = self.alertController {
+            alert.dismiss(animated: animated, completion: completion)
         }
     }
 
@@ -295,6 +302,7 @@ private extension Siren {
         let newVersionMessage = localizedNewVersionMessage()
 
         let alertController = UIAlertController(title: updateAvailableMessage, message: newVersionMessage, preferredStyle: .alert)
+        self.alertController = alertController
 
         if let alertControllerTintColor = alertControllerTintColor {
             alertController.view.tintColor = alertControllerTintColor
