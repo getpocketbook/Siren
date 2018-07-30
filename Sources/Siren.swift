@@ -99,7 +99,7 @@ public final class Siren: NSObject {
     fileprivate var appID: Int?
     fileprivate var lastVersionCheckPerformedOnDate: Date?
     fileprivate lazy var alertViewIsVisible: Bool = false
-    var alertController: UIAlertController?
+    weak var alertController: UIAlertController?
 
     /// Type of the available update
     fileprivate var updateType: UpdateType = .unknown
